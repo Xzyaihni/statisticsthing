@@ -127,7 +127,12 @@ void windowFunc(int width, int height, std::vector<DataValues> data)
 	//drawing bla bla bla
 	sf::Font font;
 	sf::FloatRect bounds;
+	#ifdef _WIN32
 	font.loadFromFile("c:/windows/fonts/arial.ttf");
+	#endif
+	#ifdef linux
+	font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
+	#endif
 	std::vector<sf::RectangleShape> shapes;
 	std::vector<sf::Text> texts;
 
@@ -289,6 +294,11 @@ void calculateStats(std::string datapath, std::string searchstr)
 			averageVariable+=data[i].value;
 			varVec.push_back(data[i]);
 		}
+	}
+	
+	if(varVec.size()==0)
+	{
+		return;
 	}
 	
 	averageVariable/=varVec.size();
